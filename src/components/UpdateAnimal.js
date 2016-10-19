@@ -11,8 +11,7 @@ export default class AddAnimal extends Component {
   handleSubmit(e,serializedForm){
     e.preventDefault()
     let {id} = this.props;
-    console.log(id)
-    // ClientsDataActions.addAnimal(serializedForm)
+    ClientsDataActions.updateAnimal(serializedForm,id)
   }
 
   render () {

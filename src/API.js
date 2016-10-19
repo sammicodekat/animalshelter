@@ -1,4 +1,4 @@
-import { get, post } from 'axios'
+import { get, post,put } from 'axios'
 import ServerActions from './actions/ServerActions'
 
 const API = {
@@ -43,6 +43,23 @@ const API = {
       ServerActions.gotLonelyAnimal(res.data)
     })
     .catch(console.error)
+  },
+  updateAnimal(newAnimal,id){
+    put(`/api/animals/update/${id}`,newAnimal)
+    .then(res => {
+      ServerActions.gotAnimal(res.data)
+    })
+    .catch(console.error)
+  },
+  updateClient(newClient,id){
+    put(`/api/clients/update/${id}`,newClient)
+    .then(res => {
+      ServerActions.gotClient(res.data)
+    })
+    .catch(console.error)
+  },
+  unAdoptAnimal(id){
+    //to be continue
   }
 }
 

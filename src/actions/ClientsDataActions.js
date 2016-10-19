@@ -20,6 +20,15 @@ const ClientsDataActions = {
   },
   getLonelyClients(){
     API.getLonelyClients()
+  },
+  updateAnimal(newAnimal,id){
+    API.updateAnimal(newAnimal,id)
+  },
+  updateClient(newClient,id){
+    API.updateClient(newClient,id)
+  },
+  unAdoptAnimal(id){
+    API.unAdoptAnimal(id)
   }
 }
 

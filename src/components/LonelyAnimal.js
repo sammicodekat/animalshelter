@@ -4,13 +4,15 @@ import { List,Item, Image, Label, Icon, Card,Grid,Button,Modal} from 'semantic-u
 import ClientsDataStore from '../stores/ClientsDataStore'
 import ClientsDataActions from '../actions/ClientsDataActions'
 import AddAnimal from './AddAnimal'
+import UpdateAnimal from './UpdateAnimal'
 
 export default class LonelyAnimal extends Component {
   constructor() {
     super();
     this.state={
       animals: ClientsDataStore.getLonelyAnimals(),
-      open:false
+      open:false,
+      idx:1
     }
     this._onChange = this._onChange.bind(this);
     this.show=this.show.bind(this)
@@ -44,8 +46,15 @@ export default class LonelyAnimal extends Component {
       })
     }
 
+    select(id){
+      this.setState({
+        idx: id,
+        color:'yellow'
+      });
+    }
+
   render() {
-    let { animals,open } = this.state
+    let { animals,open,idx } = this.state
     let Animals = '';
 
     if(animals){
@@ -54,7 +63,7 @@ export default class LonelyAnimal extends Component {
         let {name , id , breed , gender, image, size, characters, clientName, age, details } = animal ;
 
         return (
-          <Card key ={id}>
+          <Card key ={id} onClick={() => this.select(id)} >
             <Image src={image} size='medium' className='img'/>
             <Card.Content>
               <Card.Header>
@@ -96,17 +105,18 @@ export default class LonelyAnimal extends Component {
         <Modal dimmer='blurring' open={open} onClose={this.close}>
           <Modal.Header>Edit</Modal.Header>
           <Modal.Content>
-          <AddAnimal/>
+            <UpdateAnimal animals ={animals} id={idx}/>
           </Modal.Content>
           <Modal.Actions>
             <Button color='black' onClick={this.close}>
               Cancel
             </Button>
             <Button positive icon labelPosition='right' onClick={this.close}>
-              Save<Icon name='checkmark' />
-          </Button>
-        </Modal.Actions>
-      </Modal>
+              Save
+              <Icon name='checkmark' />
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </Grid>
     )
   }

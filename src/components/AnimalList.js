@@ -1,7 +1,6 @@
 import React , { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { List,Item, Image, Label, Icon, Card,Grid,Button,Modal } from 'semantic-ui-react'
-
 import ClientsDataStore from '../stores/ClientsDataStore'
 import ClientsDataActions from '../actions/ClientsDataActions'
 import UpdateAnimal from './UpdateAnimal'
@@ -41,7 +40,7 @@ export default class AnimalList extends Component {
   close(){
     this.setState({ open: false });
   }
-  
+
   select(id){
     this.setState({
       idx: id,
@@ -49,7 +48,7 @@ export default class AnimalList extends Component {
     });
   }
   unadopt(id){
-    console.log("unadopt id",id);
+    ClientsDataActions.unAdoptAnimal(id);
   }
 
   render() {
