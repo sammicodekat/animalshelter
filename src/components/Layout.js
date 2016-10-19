@@ -22,7 +22,9 @@ export default class Layout extends Component {
           <Menu.Item className={classNames({active: path === '/lanimals'})}><Link to="/lanimals">Available for Adoption</Link></Menu.Item>
           <Menu.Item className={classNames({active: path === '/lclients'})}><Link to="/lclients">Looking for Pets</Link></Menu.Item>
         </Menu>
-      {this.props.children}
+        <div className="content">
+          {this.props.children}
+        </div>
       </div>
     )
   }
