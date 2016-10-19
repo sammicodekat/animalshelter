@@ -52,3 +52,12 @@ exports.create = function( client) {
     })
   })
 }
+exports.update = function (clientId, updateObj){
+  return new Promise((resolve,reject) => {
+    let sql = squel.update().table(TABLE_NAME).setFields(updateObj).where(`id = ${clientId}`).toString()
+      console.log('sql: ', sql);
+    db.query(sql, (err,result) =>{
+      err ? reject(err) : resolve(result);
+    })
+  })
+}

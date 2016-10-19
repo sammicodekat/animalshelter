@@ -1,16 +1,20 @@
 import React , { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { List,Item, Image, Label, Icon, Card,Grid,Button } from 'semantic-ui-react'
+import { List,Item, Image, Label, Icon, Card,Grid,Button,Modal} from 'semantic-ui-react'
 import ClientsDataStore from '../stores/ClientsDataStore'
 import ClientsDataActions from '../actions/ClientsDataActions'
+import AddAnimal from './AddAnimal'
 
 export default class LonelyAnimal extends Component {
   constructor() {
     super();
     this.state={
-      animals: ClientsDataStore.getLonelyAnimals()
+      animals: ClientsDataStore.getLonelyAnimals(),
+      open:false
     }
     this._onChange = this._onChange.bind(this);
+    this.show=this.show.bind(this)
+    this.close=this.close.bind(this)
   }
 
   componentWillMount () {
@@ -28,9 +32,20 @@ export default class LonelyAnimal extends Component {
     })
   }
 
+    show(){
+      this.setState({
+        open: true
+      })
+    }
+
+    close(){
+      this.setState({
+        open: false
+      })
+    }
 
   render() {
-    let { animals } = this.state
+    let { animals,open } = this.state
     let Animals = '';
 
     if(animals){
@@ -66,7 +81,7 @@ export default class LonelyAnimal extends Component {
             </Card.Content>
             <Card.Content extra >
               <Button color='orange'>Adopt</Button>
-              <Button color='green'>Update Info</Button>
+              <Button color='green' onClick={this.show}>Update Info</Button>
               <Button color='red'>Delete</Button>
             </Card.Content>
           </Card>
@@ -78,6 +93,20 @@ export default class LonelyAnimal extends Component {
         <Grid.Row columns={5}>
           {Animals}
         </Grid.Row>
+        <Modal dimmer='blurring' open={open} onClose={this.close}>
+          <Modal.Header>Edit</Modal.Header>
+          <Modal.Content>
+          <AddAnimal/>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='black' onClick={this.close}>
+              Cancel
+            </Button>
+            <Button positive icon labelPosition='right' onClick={this.close}>
+              Save<Icon name='checkmark' />
+          </Button>
+        </Modal.Actions>
+      </Modal>
       </Grid>
     )
   }

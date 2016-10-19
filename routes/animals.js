@@ -24,11 +24,11 @@ router.route('/')
      })
    })
 
+
    router.route('/lonely')
       .get((req,res) => {
         Animal.findLonely()
         .then(animals => {
-          console.log('lonely animals',animals)
           res.send(animals)
         })
         .catch(err => {
@@ -45,6 +45,16 @@ router.route('/update/:id')
     })
     .catch(err => {
       console.log("error")
+      res.status(400).send(err)
+    })
+  })
+  .delete((req,res) => {
+    Animal.del(req.params.id,req.body)
+    .then(Animal.findAll)
+    .then(animals => {
+      res.send(animals)
+    })
+    .catch(err => {
       res.status(400).send(err)
     })
   })

@@ -26,10 +26,6 @@ const characters = [
 ]
 
 export default class AddAnimal extends Component {
-  constructor(){
-    super()
-    this.state={ value : 'small'}
-  }
 
   handleSubmit(e, serializedForm){
     e.preventDefault()
@@ -37,7 +33,6 @@ export default class AddAnimal extends Component {
   }
 
   render () {
-    const { value } = this.state
     return (
       <Form onSubmit={this.handleSubmit}>
         <Message>
