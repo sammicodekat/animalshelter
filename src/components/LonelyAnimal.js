@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { List,Item, Image, Label, Icon, Card,Grid,Button,Modal} from 'semantic-ui-react'
+import { List,Item, Image, Label, Icon, Card,Grid,Button,Modal,Dropdown} from 'semantic-ui-react'
 import ClientsDataStore from '../stores/ClientsDataStore'
 import ClientsDataActions from '../actions/ClientsDataActions'
 import AddAnimal from './AddAnimal'
@@ -11,8 +11,10 @@ export default class LonelyAnimal extends Component {
     super();
     this.state={
       animals: ClientsDataStore.getLonelyAnimals(),
+      clients: ClientsDataStore.getLonelyClients(),
       open:false,
-      idx:1
+      idx:1,
+      owner:1
     }
     this._onChange = this._onChange.bind(this);
     this.show=this.show.bind(this)
@@ -21,7 +23,8 @@ export default class LonelyAnimal extends Component {
 
   componentWillMount () {
     ClientsDataStore.startListening(this._onChange)
-    ClientsDataActions.getLonelyAnimals()
+    ClientsDataActions.getLonelyAnimals(),
+    ClientsDataActions.getLonelyClients()
   }
 
   componentWillUnmount () {
@@ -30,35 +33,55 @@ export default class LonelyAnimal extends Component {
 
   _onChange() {
     this.setState({
-      animals: ClientsDataStore.getLonelyAnimals()
+      animals: ClientsDataStore.getLonelyAnimals(),
+      clients: ClientsDataStore.getLonelyClients()
     })
   }
 
-    show(){
-      this.setState({
-        open: true
-      })
-    }
+  show(){
+    this.setState({ open: true })
+  }
 
-    close(){
-      this.setState({
-        open: false
-      })
-    }
+  close(){
+    this.setState({ open: false })
+  }
 
-    select(id){
-      this.setState({
-        idx: id,
-        color:'yellow'
-      });
-    }
+  select(id){
+    this.setState({
+      idx: id,
+      color:'yellow'
+    });
+  }
+
+  deleteAnimal(id){
+    ClientsDataActions.deleteAnimal(id)
+  }
+
+  adoptAnimal(id,owner){
+    ClientsDataActions.adoptAnimal(id,owner)
+  }
+
+  handleChange(e,{value}){
+    console.log("value",value)
+    this.setState({ owner: value });
+  }
 
   render() {
-    let { animals,open,idx } = this.state
+    let { animals,open,idx,clients, owner } = this.state
     let Animals = '';
+    const options =[];
+    let Option = ''
+    if(clients){
+      clients = clients.filter(x=>x.petId === null)
+      clients.map(c => options.push({text:c.name,value:c.id}))
+    }
+    if(options!=[]){
+    Option = (<Dropdown placeholder='Owner' options={options} onChange={this.handleChange} selection fluid header='Select a owner' />)
+    }
 
     if(animals){
       animals=animals.filter(x => x.clientId === null)
+
       Animals = animals.map( animal => {
         let {name , id , breed , gender, image, size, characters, clientName, age, details } = animal ;
 
@@ -89,9 +112,12 @@ export default class LonelyAnimal extends Component {
               </Card.Description>
             </Card.Content>
             <Card.Content extra >
-              <Button color='orange'>Adopt</Button>
+              {Option}<Button color='orange' onClick={() => this.adoptAnimal(id,owner)}>Adopt</Button>
+              <Button.Group>
               <Button color='green' onClick={this.show}>Update Info</Button>
-              <Button color='red'>Delete</Button>
+              <Button.Or />
+              <Button color='red' onClick={() => this.deleteAnimal(id)}>Delete</Button>
+              </Button.Group>
             </Card.Content>
           </Card>
         )

@@ -32,7 +32,19 @@ const ClientsDataActions = {
   },
   unAdoptClient(id){
     API.unAdoptClient(id)
-  }
+  },
+  deleteAnimal(id){
+    API.deleteAnimal(id)
+  },
+  adoptAnimal(id,owner){
+    API.adoptAnimal(id,owner)
+  },
+  deleteClient(id){
+    API.deleteClient(id)
+  },
+  adoptClient(id,pet){
+    API.adoptClient(id,pet)
+  },
 }
 
 export default ClientsDataActions

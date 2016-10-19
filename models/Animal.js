@@ -60,20 +60,16 @@ exports.create = function( animal ) {
 exports.update = function (animalId, updateObj){
   return new Promise((resolve,reject) => {
     let sql = squel.update().table(TABLE_NAME).setFields(updateObj).where(`id = ${animalId}`).toString()
-      console.log('sql: ', sql);
     db.query(sql, (err,result) =>{
-      console.log("result",result)
       err ? reject(err) : resolve(result);
     })
   })
 }
 
-exports.del = function (animalId){
+exports.del= function (animalId){
   return new Promise((resolve,reject) => {
-    let sql = squel.delete().table(TABLE_NAME).where(`id = ${animalId}`).toString()
-      console.log('sql: ', sql);
+    let sql = squel.delete().from(TABLE_NAME).where(`id = ?`, parseInt(animalId)).toString()
     db.query(sql, (err,result) =>{
-      console.log("result",result)
       err ? reject(err) : resolve(result);
     })
   })

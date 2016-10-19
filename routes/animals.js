@@ -48,7 +48,8 @@ router.route('/update/:id')
   })
 })
 .delete((req,res) => {
-  Animal.del(req.params.id,req.body)
+  console.log("animal route",req.params.id)
+  Animal.del(req.params.id)
   .then(Animal.findAll)
   .then(animals => {
     res.send(animals)
@@ -64,6 +65,19 @@ router.route('/unadopt/:id')
   .then(Animal.findAll)
   .then(animals => {
     console.log("animals",animals)
+    res.send(animals)
+  })
+  .catch(err => {
+    console.log("error")
+    res.status(400).send(err)
+  })
+})
+
+router.route('/adopt/:id/:owner')
+.put((req,res) => {
+  Animal.adopt(req.params.id,req.params.owner)
+  .then(Animal.findAll)
+  .then(animals => {
     res.send(animals)
   })
   .catch(err => {

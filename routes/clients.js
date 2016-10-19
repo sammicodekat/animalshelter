@@ -71,4 +71,17 @@ router.route('/unadopt/:id')
   })
 })
 
+router.route('/adopt/:id')
+.put((req,res) => {
+  Client.adopt(req.params.id)
+  .then(Client.findAll)
+  .then(clients => {
+    res.send(clients)
+  })
+  .catch(err => {
+    console.log("error")
+    res.status(400).send(err)
+  })
+})
+
 module.exports = router;
