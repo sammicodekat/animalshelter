@@ -85,7 +85,7 @@ export default class LonelyAnimal extends Component {
         let {name , id , breed , gender, image, size, characters, clientName, age, details } = animal ;
 
         return (
-          <Card key ={id} onClick={() => this.select(id)} >
+          <Card key ={id} onClick={() => this.select(id)} className='card'>
             <Image src={image} size='medium' className='img'/>
             <Card.Content>
               <Card.Header>
@@ -124,9 +124,9 @@ export default class LonelyAnimal extends Component {
     }
     return (
       <Grid textAlign='center'>
-        <Grid.Row columns={5}>
+        <Card.Group>
           {Animals}
-        </Grid.Row>
+        </Card.Group>
         <Modal dimmer='blurring' open={open} onClose={this.close}>
           <Modal.Header>Edit</Modal.Header>
           <Modal.Content>
