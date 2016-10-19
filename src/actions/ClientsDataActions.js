@@ -29,6 +29,9 @@ const ClientsDataActions = {
   },
   unAdoptAnimal(id){
     API.unAdoptAnimal(id)
+  },
+  unAdoptClient(id){
+    API.unAdoptClient(id)
   }
 }
 

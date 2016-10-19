@@ -61,3 +61,24 @@ exports.update = function (clientId, updateObj){
     })
   })
 }
+
+exports.del = function (clientId){
+  return new Promise((resolve,reject) => {
+    let sql = squel.delete().table(TABLE_NAME).where(`id = ${clientId}`).toString()
+      console.log('sql: ', sql);
+    db.query(sql, (err,result) =>{
+      console.log("result",result)
+      err ? reject(err) : resolve(result);
+    })
+  })
+}
+exports.adopt = function (animalId,clientId){
+  return new Promise((resolve,reject) => {
+    let sql = squel.update().table(TABLE_NAME).set('petId',animalId).where(`id = ${clientId}`).toString()
+      console.log('sql: ', sql);
+    db.query(sql, (err,result) =>{
+      console.log("result",result)
+      err ? reject(err) : resolve(result);
+    })
+  })
+}

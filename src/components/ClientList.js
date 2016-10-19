@@ -1,17 +1,23 @@
 import React , { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { List,Item, Image, Label, Icon, Grid, Button, Card } from 'semantic-ui-react'
+import { List,Item, Image, Label, Icon, Grid, Button, Card, Modal } from 'semantic-ui-react'
 
 import ClientsDataStore from '../stores/ClientsDataStore'
 import ClientsDataActions from '../actions/ClientsDataActions'
+import UpdateClient from './UpdateClient'
 
-export default class AnimalList extends Component {
+export default class ClientList extends Component {
   constructor() {
     super();
     this.state={
-      clients: ClientsDataStore.getClients()
+      clients: ClientsDataStore.getClients(),
+      open:false,
+      idx:1
     }
     this._onChange = this._onChange.bind(this);
+    this.show = this.show.bind(this);
+    this.close = this.close.bind(this);
+    this.select = this.select.bind(this);
   }
 
   componentWillMount () {
@@ -29,16 +35,36 @@ export default class AnimalList extends Component {
     })
   }
 
+  show(){
+    this.setState({ open: true });
+  }
+
+  close(){
+    this.setState({ open: false });
+  }
+
+  select(id){
+    this.setState({
+      idx: id,
+      color:'yellow'
+    });
+  }
+
+  unadopt(id){
+    ClientsDataActions.unAdoptAnimal(id);
+  }
+
     render() {
-      let { clients } = this.state
+      let { clients, open, idx } = this.state
       let Clients= '';
 
       if(clients){
         Clients = clients.map( client => {
           let {name , id , gender, image, info, animalName, age, details } = client ;
+          console.log("gender",client.gender)
 
           return (
-            <Card key ={id}>
+            <Card key ={id} onClick={() => this.select(id)} >
               <Image src={image} size='medium' className='img'/>
               <Card.Content>
                 <Card.Header>
@@ -54,14 +80,14 @@ export default class AnimalList extends Component {
                   Info: {info}
                 </Card.Meta>
                 <Card.Meta>
-                  Owns: {animalName} <Button size='mini' color='red'>Unadopt</Button>
+                  Owns: {animalName} <Button size='mini' color='red' onClick={this.unadopt.bind(null,id)}>Unadopt</Button>
                 </Card.Meta>
                 <Card.Description>
                   {details}
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <Button color='green'>Update Info</Button>
+                <Button color='green' onClick={this.show}>Update Info</Button>
               </Card.Content>
             </Card>
           )
@@ -73,6 +99,17 @@ export default class AnimalList extends Component {
           <Grid.Row columns={5}>
             {Clients}
           </Grid.Row>
+          <Modal dimmer='blurring' open={open} onClose={this.close}>
+            <Modal.Header>Edit</Modal.Header>
+            <Modal.Content>
+              <UpdateClient clients ={clients} id={idx}/>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color='green' onClick={this.close}>
+                Go Back
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </Grid>
       )
     }

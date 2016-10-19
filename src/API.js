@@ -1,4 +1,4 @@
-import { get, post,put } from 'axios'
+import axios, { get, post,put } from 'axios'
 import ServerActions from './actions/ServerActions'
 
 const API = {
@@ -59,7 +59,18 @@ const API = {
     .catch(console.error)
   },
   unAdoptAnimal(id){
-    //to be continue
+    axios.delete(`/api/animals/delete/${id}`)
+    .then(res => {
+      ServerActions.gotAnimal(res.data)
+    })
+    .catch(console.error)
+  },
+  unAdoptClient(id){
+    axios.delete(`/api/clients/delete/${id}`)
+    .then(res => {
+      ServerActions.gotClient(res.data)
+    })
+    .catch(console.error)
   }
 }
 

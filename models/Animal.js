@@ -62,6 +62,39 @@ exports.update = function (animalId, updateObj){
     let sql = squel.update().table(TABLE_NAME).setFields(updateObj).where(`id = ${animalId}`).toString()
       console.log('sql: ', sql);
     db.query(sql, (err,result) =>{
+      console.log("result",result)
+      err ? reject(err) : resolve(result);
+    })
+  })
+}
+
+exports.del = function (animalId){
+  return new Promise((resolve,reject) => {
+    let sql = squel.delete().table(TABLE_NAME).where(`id = ${animalId}`).toString()
+      console.log('sql: ', sql);
+    db.query(sql, (err,result) =>{
+      console.log("result",result)
+      err ? reject(err) : resolve(result);
+    })
+  })
+}
+
+exports.upadopt = function (animalId){
+  return new Promise((resolve,reject) => {
+    let sql = squel.update().table(TABLE_NAME).set('clientId',null).where(`id = ${animalId}`).toString()
+      console.log('sql: ', sql);
+    db.query(sql, (err,result) =>{
+      console.log("result",result)
+      err ? reject(err) : resolve(result);
+    })
+  })
+}
+exports.adopt = function (animalId,clientId){
+  return new Promise((resolve,reject) => {
+    let sql = squel.update().table(TABLE_NAME).set('clientId',clientId).where(`id = ${animalId}`).toString()
+      console.log('sql: ', sql);
+    db.query(sql, (err,result) =>{
+      console.log("result",result)
       err ? reject(err) : resolve(result);
     })
   })

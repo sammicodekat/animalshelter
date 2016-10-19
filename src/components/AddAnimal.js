@@ -29,6 +29,12 @@ export default class AddAnimal extends Component {
 
   handleSubmit(e, serializedForm){
     e.preventDefault()
+    serializedForm.age = parseInt(serializedForm.age)
+    if(serializedForm.clientId == ''){
+      serializedForm.clientId = null
+    }else{
+      serializedForm.clientId = parseInt(serializedForm.clientId)
+    }
     ClientsDataActions.addAnimal(serializedForm)
   }
 

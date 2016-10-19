@@ -105,12 +105,8 @@ export default class AnimalList extends Component {
           <UpdateAnimal animals ={animals} id={idx}/>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='black' onClick={this.close}>
-            Cancel
-          </Button>
-          <Button positive icon labelPosition='right' onClick={this.close}>
-            Save
-            <Icon name='checkmark' />
+          <Button color='green' onClick={this.close}>
+            Go Back
           </Button>
         </Modal.Actions>
       </Modal>

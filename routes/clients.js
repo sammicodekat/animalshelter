@@ -15,7 +15,7 @@ router.route('/')
 })
 .post((req,res) => {
   Client.create(req.body)
-  .then(client.findAll)
+  .then(Client.findAll)
   .then(clients => {
     res.send(clients)
   })
@@ -38,7 +38,7 @@ router.route('/lonely')
 router.route('/update/:id')
 .put((req,res) => {
   Client.update(req.params.id,req.body)
-  .then(clients.findAll)
+  .then(Client.findAll)
   .then(clients => {
     res.send(clients)
   })
@@ -49,7 +49,7 @@ router.route('/update/:id')
 })
 .delete((req,res) => {
   Client.del(req.params.id,req.body)
-  .then(clients.findAll)
+  .then(Client.findAll)
   .then(clients => {
     res.send(clients)
   })

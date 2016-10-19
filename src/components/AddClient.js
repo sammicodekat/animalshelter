@@ -16,6 +16,12 @@ export default class AddClient extends Component {
 
   handleSubmit(e, serializedForm){
     e.preventDefault()
+    serializedForm.age = parseInt(serializedForm.age)
+    if(serializedForm.petId == ''){
+      serializedForm.petId = null
+    }else{
+      serializedForm.petId = parseInt(serializedForm.petId)
+    }
     ClientsDataActions.addClient(serializedForm)
   }
 
