@@ -51,7 +51,7 @@ export default class ClientList extends Component {
   }
 
   unadopt(id){
-    ClientsDataActions.unAdoptAnimal(id);
+    ClientsDataActions.unAdoptClient(id);
   }
 
     render() {
