@@ -59,16 +59,30 @@ const API = {
     .catch(console.error)
   },
   unAdoptAnimal(id){
-    axios.delete(`/api/animals/delete/${id}`)
+    put(`/api/animals/unadopt/${id}`)
     .then(res => {
       ServerActions.gotAnimal(res.data)
     })
     .catch(console.error)
   },
   unAdoptClient(id){
-    axios.delete(`/api/clients/delete/${id}`)
+    put(`/api/clients/unadopt/${id}`)
     .then(res => {
       ServerActions.gotClient(res.data)
+    })
+    .catch(console.error)
+  },
+  deleteAnimal(id){
+    axios.delete(`/api/animals/delete/${id}`)
+    .then(res => {
+      ServerActions.gotLonelyAnimal(res.data)
+    })
+    .catch(console.error)
+  },
+  deleteClient(id){
+    axios.delete(`/api/clients/delete/${id}`)
+    .then(res => {
+      ServerActions.gotLonelyClient(res.data)
     })
     .catch(console.error)
   }

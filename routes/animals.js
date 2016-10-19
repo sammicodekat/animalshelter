@@ -41,11 +41,9 @@ router.route('/update/:id')
   Animal.update(req.params.id,req.body)
   .then(Animal.findAll)
   .then(animals => {
-    console.log("animals",animals)
     res.send(animals)
   })
   .catch(err => {
-    console.log("error")
     res.status(400).send(err)
   })
 })
@@ -59,5 +57,21 @@ router.route('/update/:id')
     res.status(400).send(err)
   })
 })
+
+router.route('/unadopt/:id')
+.put((req,res) => {
+  Animal.unadopt(req.params.id)
+  .then(Animal.findAll)
+  .then(animals => {
+    console.log("animals",animals)
+    res.send(animals)
+  })
+  .catch(err => {
+    console.log("error")
+    res.status(400).send(err)
+  })
+})
+
+
 
 module.exports = router;

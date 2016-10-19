@@ -79,7 +79,7 @@ exports.del = function (animalId){
   })
 }
 
-exports.upadopt = function (animalId){
+exports.unadopt = function (animalId){
   return new Promise((resolve,reject) => {
     let sql = squel.update().table(TABLE_NAME).set('clientId',null).where(`id = ${animalId}`).toString()
       console.log('sql: ', sql);
