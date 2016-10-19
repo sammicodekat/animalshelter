@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { List,Item, Image, Label, Icon, Card,Grid,Button,Modal,Dropdown} from 'semantic-ui-react'
 import ClientsDataStore from '../stores/ClientsDataStore'
 import ClientsDataActions from '../actions/ClientsDataActions'
-import AddAnimal from './AddAnimal'
 import UpdateAnimal from './UpdateAnimal'
 
 export default class LonelyAnimal extends Component {
@@ -17,14 +16,14 @@ export default class LonelyAnimal extends Component {
       owner:1
     }
     this._onChange = this._onChange.bind(this);
-    this.show=this.show.bind(this)
-    this.close=this.close.bind(this)
+    this.show=this.show.bind(this);
+    this.close=this.close.bind(this);
   }
 
   componentWillMount () {
-    ClientsDataStore.startListening(this._onChange)
-    ClientsDataActions.getLonelyAnimals(),
-    ClientsDataActions.getLonelyClients()
+    ClientsDataStore.startListening(this._onChange);
+    ClientsDataActions.getLonelyAnimals();
+    ClientsDataActions.getLonelyClients();
   }
 
   componentWillUnmount () {
@@ -67,7 +66,7 @@ export default class LonelyAnimal extends Component {
   }
 
   render() {
-    let { animals,open,idx,clients, owner } = this.state
+    let { animals, open, idx, clients, owner } = this.state
     let Animals = '';
     const options =[];
     let Option = ''

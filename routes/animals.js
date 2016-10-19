@@ -48,9 +48,8 @@ router.route('/update/:id')
   })
 })
 .delete((req,res) => {
-  console.log("animal route",req.params.id)
   Animal.del(req.params.id)
-  .then(Animal.findAll)
+  .then(Animal.findLonely)
   .then(animals => {
     res.send(animals)
   })

@@ -49,7 +49,7 @@ router.route('/update/:id')
 })
 .delete((req,res) => {
   Client.del(req.params.id,req.body)
-  .then(Client.findAll)
+  .then(Client.findLonely)
   .then(clients => {
     res.send(clients)
   })
