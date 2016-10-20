@@ -75,14 +75,14 @@ const API = {
   adoptAnimal(id,owner){
     put(`/api/animals/adopt/${id}/${owner}`)
     .then(res => {
-      ServerActions.gotAnimal(res.data)
+      ServerActions.gotLonelyAnimal(res.data)
     })
     .catch(console.error)
   },
   adoptClient(id,pet){
     put(`/api/clients/adopt/${id}/${pet}`)
     .then(res => {
-      ServerActions.gotClient(res.data)
+      ServerActions.gotLonelyClient(res.data)
     })
     .catch(console.error)
   },
