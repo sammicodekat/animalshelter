@@ -18,6 +18,7 @@ export default class LonelyAnimal extends Component {
     this._onChange = this._onChange.bind(this);
     this.show=this.show.bind(this);
     this.close=this.close.bind(this);
+    this.handleChange= this.handleChange.bind(this);
   }
 
   componentWillMount () {

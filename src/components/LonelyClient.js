@@ -18,6 +18,7 @@ export default class LonelyClient extends Component {
     this._onChange = this._onChange.bind(this);
     this.show=this.show.bind(this);
     this.close=this.close.bind(this);
+    this.handleChange= this.handleChange.bind(this);
   }
 
   componentWillMount () {
@@ -57,7 +58,6 @@ export default class LonelyClient extends Component {
   }
 
   handleChange(e,{value}){
-    console.log("value",value)
     this.setState({ owner: value });
   }
 
