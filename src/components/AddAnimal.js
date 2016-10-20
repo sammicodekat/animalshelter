@@ -27,6 +27,12 @@ const characters = [
 
 export default class AddAnimal extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {mssg:false}
+    this.handleSubmit=this.handleSubmit.bind(this)
+  }
+
   handleSubmit(e, serializedForm){
     e.preventDefault()
     serializedForm.age = parseInt(serializedForm.age)
@@ -35,15 +41,19 @@ export default class AddAnimal extends Component {
     }else{
       serializedForm.clientId = parseInt(serializedForm.clientId)
     }
+    this.setState({
+      mssg:true
+    })
     ClientsDataActions.addAnimal(serializedForm)
   }
 
   render () {
+    let {mssg} = this.state
+    let Mssg = mssg ? (<Message positive floating><Message.Header>Animal Added</Message.Header>
+    <p>Please check out the Animal for adoption page!</p></Message>) : (<Message floating><h3>Animal</h3> </Message>)
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Message>
-       <h3> Animal</h3>
-     </Message>
+      {Mssg}
         <Form.Group widths='equal'>
           <Form.Input label='Name' name='name' placeholder='Name' />
           <Form.Input label='Age' name='age' placeholder='Age' />

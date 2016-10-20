@@ -13,6 +13,11 @@ const info = [
 ]
 
 export default class AddClient extends Component {
+  constructor(props){
+    super(props)
+    this.state = {mssg:false}
+    this.handleSubmit=this.handleSubmit.bind(this)
+  }
 
   handleSubmit(e, serializedForm){
     e.preventDefault()
@@ -22,15 +27,19 @@ export default class AddClient extends Component {
     }else{
       serializedForm.petId = parseInt(serializedForm.petId)
     }
+    this.setState({
+      mssg:true
+    })
     ClientsDataActions.addClient(serializedForm)
   }
 
   render () {
+    let {mssg} = this.state
+    let Mssg = mssg ? (<Message positive floating><Message.Header>Client Added</Message.Header>
+    <p>Please check out the Looking for Pets page for more info!</p></Message>) : (<Message floating><h3>Client</h3> </Message>)
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Message>
-       <h3> Client </h3>
-     </Message>
+        {Mssg}
         <Form.Group widths='equal'>
           <Form.Input label='Name' name='name' placeholder='Name' />
           <Form.Input label='Age' name='age' placeholder='Age' />
