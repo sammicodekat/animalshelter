@@ -39,7 +39,7 @@ exports.findAll = () => new Promise((resolve,reject) => {
 })
 
 exports.findLonely = () => new Promise((resolve,reject) => {
-  db.query(`SELECT * FROM ${TABLE_NAME} WHERE petId IS NULL`, (err, clients) => {
+  db.query(`SELECT * FROM ${TABLE_NAME} WHERE petId IS NULL OR info='experienced'`, (err, clients) => {
     if (err) return reject (err);
     resolve(clients)
   })
