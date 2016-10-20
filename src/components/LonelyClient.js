@@ -99,13 +99,14 @@ export default class LonelyClient extends Component {
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              {Option}<Button color='orange' onClick={() => this.adoptClient(id,pet)}>Adopt Animal</Button>
+              {Option}
               <Button.Group>
               <Button color='green' onClick={this.show}>Update Info</Button>
               <Button.Or />
-              <Button color='red' onClick={() => this.deleteClient(id)}>Delete</Button>
+              <Button color='orange' onClick={() => this.adoptClient(id,pet)}>Adopt Animal</Button>
               </Button.Group>
             </Card.Content>
+              <Button floated='left' color='red' circular onClick={() => this.deleteClient(id)} icon='trash'/>
           </Card>
         )
       })

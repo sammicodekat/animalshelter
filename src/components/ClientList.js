@@ -80,7 +80,7 @@ export default class ClientList extends Component {
                   Info: {info}
                 </Card.Meta>
                 <Card.Meta>
-                  Owns: {animalName} <Button size='mini' color='red' onClick={this.unadopt.bind(null,id,petId)}>Unadopt</Button>
+                  Owns: {animalName} <Button size='small' circular color='red' onClick={this.unadopt.bind(null,id,petId)} icon='trash' />
                 </Card.Meta>
                 <Card.Description>
                   {details}

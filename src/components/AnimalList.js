@@ -82,7 +82,7 @@ export default class AnimalList extends Component {
                 Size: {size}
               </Card.Meta>
               <Card.Meta>
-                Owner: {clientName} <Button size='mini' color='red' onClick={this.unadopt.bind(null,id,clientId)}>Unadopt</Button>
+                Owner: {clientName} <Button size='small' color='red' circular onClick={this.unadopt.bind(null,id,clientId)} icon='trash'/>
             </Card.Meta>
             <Card.Description>
               {details}

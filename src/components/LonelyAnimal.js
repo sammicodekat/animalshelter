@@ -86,6 +86,7 @@ export default class LonelyAnimal extends Component {
           <Card key ={id} onClick={() => this.select(id)} className='card'>
             <Image src={image} size='medium' className='img'/>
             <Card.Content>
+
               <Card.Header>
                 {name}
               </Card.Header>
@@ -109,13 +110,14 @@ export default class LonelyAnimal extends Component {
               </Card.Description>
             </Card.Content>
             <Card.Content extra >
-              {Option}<Button color='orange' onClick={() => this.adoptAnimal(id,owner)}>Adopt</Button>
+              {Option}
               <Button.Group>
               <Button color='green' onClick={this.show}>Update Info</Button>
               <Button.Or />
-              <Button color='red' onClick={() => this.deleteAnimal(id)}>Delete</Button>
+              <Button color='orange' onClick={() => this.adoptAnimal(id,owner)}>Adopt</Button>
               </Button.Group>
             </Card.Content>
+            <Button floated='left' color='red' circular onClick={() => this.deleteAnimal(id)} icon='trash'/>
           </Card>
         )
       })
