@@ -43,7 +43,6 @@ router.route('/update/:id')
     res.send(clients)
   })
   .catch(err => {
-    console.log("error")
     res.status(400).send(err)
   })
 })
@@ -66,20 +65,18 @@ router.route('/unadopt/:id')
     res.send(clients)
   })
   .catch(err => {
-    console.log("error")
     res.status(400).send(err)
   })
 })
 
-router.route('/adopt/:id')
+router.route('/adopt/:id/:pet')
 .put((req,res) => {
-  Client.adopt(req.params.id)
-  .then(Client.findAll)
+  Client.adopt(req.params.id,req.params.pet)
+  .then(Client.findLonely)
   .then(clients => {
     res.send(clients)
   })
   .catch(err => {
-    console.log("error")
     res.status(400).send(err)
   })
 })

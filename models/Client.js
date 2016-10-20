@@ -25,6 +25,8 @@ exports.findAll = () => new Promise((resolve,reject) => {
                  .field('Clients.info')
                  .field('Clients.image')
                  .field('Clients.details')
+                 .field('Clients.gender')
+                 .field('Clients.petId')
                  .field('Animals.name','animalName')
                  .from(TABLE_NAME)
                  .join('Animals',null,'Clients.petId = Animals.id')
@@ -81,7 +83,7 @@ exports.unadopt = function (clientId){
   })
 }
 
-exports.adopt = function (animalId,clientId){
+exports.adopt = function (clientId,animalId){
   return new Promise((resolve,reject) => {
     let sql = squel.update().table(TABLE_NAME).set('petId',animalId).where(`id = ${clientId}`).toString()
       console.log('sql: ', sql);

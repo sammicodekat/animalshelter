@@ -55,10 +55,11 @@ export default class LonelyClient extends Component {
 
   adoptClient(id,pet){
     ClientsDataActions.adoptClient(id,pet)
+    ClientsDataActions.adoptAnimal(pet,id)
   }
 
   handleChange(e,{value}){
-    this.setState({ owner: value });
+    this.setState({ pet: value });
   }
 
   render() {
@@ -67,7 +68,6 @@ export default class LonelyClient extends Component {
     const options =[];
     let Option = ''
     if(animals){
-      animals = animals.filter(x=>x.clientId === null)
       animals.map(c => options.push({text:c.name,value:c.id}))
     }
     if(options!=[]){
@@ -75,10 +75,8 @@ export default class LonelyClient extends Component {
     }
 
     if(clients){
-      clients = clients.filter(x=>x.petId === null)
-
       Clients = clients.map( client => {
-        let {name , id , gender, image, info, animalName, age, details } = client ;
+        let {name , id , gender, image, info, animalName, age, details} = client ;
 
         return (
           <Card key ={id} onClick={() => this.select(id)} className='card'>

@@ -47,10 +47,10 @@ class ClientsDataStore extends EventEmitter {
     return _clients
   }
   getLonelyAnimals(){
-    return _lanimals
+    return _lanimals = _lanimals ? _lanimals.filter(x=>x.clientId === null) :  ''
   }
   getLonelyClients(){
-    return _lclients
+    return _lclients = _lclients ? _lclients.filter(x=>x.petId === null) : ''
   }
 }
 

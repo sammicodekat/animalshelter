@@ -24,7 +24,6 @@ router.route('/')
   })
 })
 
-
 router.route('/lonely')
 .get((req,res) => {
   Animal.findLonely()
@@ -63,11 +62,9 @@ router.route('/unadopt/:id')
   Animal.unadopt(req.params.id)
   .then(Animal.findAll)
   .then(animals => {
-    console.log("animals",animals)
     res.send(animals)
   })
   .catch(err => {
-    console.log("error")
     res.status(400).send(err)
   })
 })
@@ -75,12 +72,11 @@ router.route('/unadopt/:id')
 router.route('/adopt/:id/:owner')
 .put((req,res) => {
   Animal.adopt(req.params.id,req.params.owner)
-  .then(Animal.findAll)
+  .then(Animal.findLonely)
   .then(animals => {
     res.send(animals)
   })
   .catch(err => {
-    console.log("error")
     res.status(400).send(err)
   })
 })

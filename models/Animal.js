@@ -30,10 +30,10 @@ exports.findAll = () => new Promise((resolve,reject) => {
                  .field('Animals.gender')
                  .field('Animals.breed')
                  .field('Animals.size')
+                 .field('Animals.clientId')
                  .field('Clients.name','clientName')
                  .from(TABLE_NAME)
                  .join('Clients',null,'Animals.clientId = Clients.id')
-                //  .where('Animals.clientId = 1')
                  .toString()
 
   db.query( sql, (err, animals) => {

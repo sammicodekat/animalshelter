@@ -47,8 +47,9 @@ export default class AnimalList extends Component {
       color:'yellow'
     });
   }
-  unadopt(id){
+  unadopt(id,clientId){
     ClientsDataActions.unAdoptAnimal(id);
+    ClientsDataActions.unAdoptClient(clientId);
   }
 
   render() {
@@ -57,7 +58,7 @@ export default class AnimalList extends Component {
 
     if(animals){
       Animals = animals.map(animal => {
-        let { name, id, breed, gender, image, size, characters, clientName, age, details } = animal;
+        let { name, id, breed, gender, image, size, characters, clientName, age, details,clientId } = animal;
         return (
           <Card key ={id} onClick={() => this.select(id)} color={color} className='card'>
             <Image src={image} size='medium' className='img'/>
@@ -81,7 +82,7 @@ export default class AnimalList extends Component {
                 Size: {size}
               </Card.Meta>
               <Card.Meta>
-                Owner: {clientName} <Button size='mini' color='red' onClick={this.unadopt.bind(null,id)}>Unadopt</Button>
+                Owner: {clientName} <Button size='mini' color='red' onClick={this.unadopt.bind(null,id,clientId)}>Unadopt</Button>
             </Card.Meta>
             <Card.Description>
               {details}
